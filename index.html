@@ -1,11 +1,506 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Привет, мир!</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Andrey Illarionov</title>
+<meta name="description" content="Andrey Illarionov — technical direction for live TV broadcasts, and sourcing and closing deals on undervalued property at bankruptcy auctions." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Colors */
+    --color-midnight-ink: #05060f;
+    --color-graphite-plate: #2f343e;
+    --color-steel-border: #3f4959;
+    --color-fog: #81899b;
+    --color-pebble: #9da7ba;
+    --color-moonlight: #c7d3ea;
+    --color-ice: #d1e4fa;
+    --color-glacier: #d8ecf8;
+    --color-frost-link: #b6d9fc;
+    --color-electric-iris: #663af3;
+    --color-ember: #e46d4c;
+    --color-azure: #027dea;
+    --color-cipher-mint: #269684;
+
+    /* Fonts (free substitutes named in the style reference) */
+    --font-untitled-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-aeonikpro: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-dotdigital: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    /* Spacing */
+    --spacing-8: 8px;
+    --spacing-12: 12px;
+    --spacing-16: 16px;
+    --spacing-20: 20px;
+    --spacing-24: 24px;
+    --spacing-32: 32px;
+    --spacing-40: 40px;
+    --spacing-48: 48px;
+    --spacing-56: 56px;
+    --spacing-100: 100px;
+    --spacing-120: 120px;
+
+    /* Radius */
+    --radius-buttons: 2px;
+    --radius-inputs: 2px;
+    --radius-badges: 6px;
+    --radius-card: 10px;
+    --radius-pill: 999px;
+
+    /* Shadows */
+    --shadow-glow-sm: rgba(186, 207, 247, 0.32) 0px 0px 6px 0px;
+    --shadow-glow-md: rgba(238, 186, 247, 0.24) 0px 0px 12px 0px;
+    --shadow-hairline: inset 0 0 0 1px rgba(186, 215, 247, 0.12);
+    --shadow-card:
+      inset 0px 1px 1px 0px rgba(199, 211, 234, 0.12),
+      inset 0px 24px 48px 0px rgba(199, 211, 234, 0.05),
+      0px 24px 32px 0px rgba(6, 6, 14, 0.7);
+
+    --page-max-width: 1200px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-midnight-ink);
+    color: var(--color-moonlight);
+    font-family: var(--font-untitled-sans);
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  :focus-visible {
+    outline: 2px solid var(--color-frost-link);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--color-electric-iris);
+    color: #fff;
+    padding: 10px 16px;
+    z-index: 100;
+  }
+  .skip-link:focus { left: 16px; top: 16px; }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-untitled-sans);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 10px 16px;
+    border-radius: var(--radius-buttons);
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .btn--primary { background: var(--color-electric-iris); color: #ffffff; }
+  .btn--primary:hover { background: #7448f5; }
+  .btn--ghost {
+    background: transparent;
+    color: var(--color-moonlight);
+    box-shadow: var(--shadow-hairline);
+  }
+  .btn--ghost:hover { color: var(--color-glacier); }
+  .btn--pill {
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--color-moonlight);
+    font-size: 14px;
+    padding: 8px 18px;
+  }
+  .btn--pill:hover { background: rgba(199, 211, 234, 0.08); color: var(--color-glacier); }
+
+  .icon { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- Nav ---------- */
+  .nav {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px;
+  }
+  .nav__brand {
+    font-family: var(--font-untitled-sans);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--color-glacier);
+    letter-spacing: -0.01em;
+  }
+  .nav__right { display: flex; align-items: center; gap: 16px; }
+  .nav__icon-btn {
+    display: inline-flex;
+    color: var(--color-pebble);
+    padding: 6px;
+    border-radius: var(--radius-badges);
+  }
+  .nav__icon-btn:hover { color: var(--color-moonlight); }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; overflow: hidden; }
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse 900px 460px at 50% -8%, rgba(216, 236, 248, 0.10), transparent 70%),
+      linear-gradient(rgba(186, 215, 247, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(186, 215, 247, 0.045) 1px, transparent 1px);
+    background-size: auto, 40px 40px, 40px 40px;
+    mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);
+    pointer-events: none;
+  }
+  .hero__frame {
+    position: relative;
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: var(--spacing-56) 32px var(--spacing-100);
+    text-align: center;
+  }
+  .hero__frame::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(124, 145, 182, 0.5) 50%, transparent);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-dotdigital);
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    color: var(--color-fog);
+    font-variant-numeric: tabular-nums;
+    text-transform: none;
+  }
+  .eyebrow__rule { width: 24px; height: 1px; background: var(--color-steel-border); }
+
+  .hero__wordmark {
+    font-family: var(--font-aeonikpro);
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 1.14;
+    color: #ffffff;
+    margin: 20px 0 16px;
+  }
+
+  .hero__subtitle {
+    font-family: var(--font-untitled-sans);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1.33;
+    color: var(--color-pebble);
+    max-width: 520px;
+    margin: 0 auto 32px;
+  }
+
+  .hero__actions { display: flex; gap: 12px; justify-content: center; margin-bottom: var(--spacing-56); flex-wrap: wrap; }
+
+  /* ---------- Track chips (signature element) ---------- */
+  .track-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .track-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: var(--radius-pill);
+    background: var(--color-graphite-plate);
+    box-shadow: var(--shadow-hairline);
+    font-size: 14px;
+    color: var(--color-ice);
+  }
+
+  /* ---------- Sections ---------- */
+  .section {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: var(--spacing-120) 32px 0;
+    text-align: center;
+  }
+  .section:last-of-type { padding-bottom: var(--spacing-120); }
+  .section__heading {
+    font-family: var(--font-aeonikpro);
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 1.16;
+    color: var(--color-glacier);
+    margin: 16px 0 12px;
+  }
+  .section__body {
+    font-family: var(--font-untitled-sans);
+    font-size: 16px;
+    color: var(--color-pebble);
+    max-width: 480px;
+    margin: 0 auto var(--spacing-56);
+  }
+
+  /* ---------- Feature tiles ---------- */
+  .feature-row {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .feature-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    gap: 12px;
+  }
+  .feature-tile__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-badges);
+    background: var(--color-graphite-plate);
+    box-shadow: var(--shadow-hairline);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-moonlight);
+  }
+  .feature-tile__label {
+    font-size: 13px;
+    color: var(--color-fog);
+    text-align: center;
+  }
+  .feature-connector {
+    width: 48px;
+    height: 1px;
+    background: var(--color-steel-border);
+    box-shadow: var(--shadow-glow-sm);
+    margin-top: 20px;
+  }
+
+  /* ---------- Work grid ---------- */
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .work-card {
+    background: var(--color-graphite-plate);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-hairline);
+    padding: var(--spacing-24);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .work-card__title {
+    font-family: var(--font-untitled-sans);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--color-glacier);
+  }
+  .work-card__desc {
+    font-size: 14px;
+    line-height: 1.43;
+    color: var(--color-pebble);
+    flex: 1;
+  }
+  /* ---------- Contact ---------- */
+  .contact__chips { display: flex; justify-content: center; gap: 12px; margin-bottom: var(--spacing-32); flex-wrap: wrap; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: var(--radius-pill);
+    background: var(--color-graphite-plate);
+    box-shadow: var(--shadow-hairline);
+    font-size: 14px;
+    color: var(--color-moonlight);
+  }
+  .chip:hover { color: var(--color-glacier); }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding: var(--spacing-32) 32px var(--spacing-48);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid var(--color-steel-border);
+    font-size: 13px;
+    color: var(--color-fog);
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px) {
+    .work-grid { grid-template-columns: 1fr; }
+    .feature-connector { display: none; }
+    .hero__wordmark { font-size: 40px; }
+    .section__heading { font-size: 32px; }
+  }
+  @media (max-width: 520px) {
+    .nav { padding: 20px; }
+    .hero__frame { padding: 40px 20px 72px; }
+    .hero__wordmark { font-size: 32px; }
+    .section { padding-top: 72px; }
+    .footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
 </head>
 <body>
-  <h1>Привет, мир!</h1>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header>
+  <nav class="nav">
+    <span class="nav__brand">Andrey Illarionov</span>
+    <div class="nav__right">
+      <a class="btn btn--pill" href="#work">View work</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="hero__frame">
+      <p class="eyebrow"><span class="eyebrow__rule"></span>Personal site<span class="eyebrow__rule"></span></p>
+      <h1 class="hero__wordmark">Andrey Illarionov</h1>
+      <p class="hero__subtitle">Runs the technical side of live TV broadcasts. Separately, sources, evaluates, and closes deals on undervalued property at bankruptcy auctions.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#work">View work</a>
+        <a class="btn btn--ghost" href="#contact">Get in touch</a>
+      </div>
+
+      <div class="track-row">
+        <span class="track-chip">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;">
+            <path d="M4 11a8 8 0 0 1 16 0"/><path d="M7.5 14a4 4 0 0 1 9 0"/><circle cx="12" cy="18" r="1.3" fill="currentColor" stroke="none"/>
+          </svg>
+          Live broadcast engineering
+        </span>
+        <span class="track-chip">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;">
+            <path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-7h6v7"/>
+          </svg>
+          Distressed-asset investing
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="focus">
+    <p class="eyebrow"><span class="eyebrow__rule"></span>Focus areas<span class="eyebrow__rule"></span></p>
+    <h2 class="section__heading">On air, and on paper.</h2>
+    <p class="section__body">Two different worlds, same way of working: get close to the details, move fast when it matters.</p>
+    <div class="feature-row">
+      <div class="feature-tile">
+        <div class="feature-tile__icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 11a8 8 0 0 1 16 0"/><path d="M7.5 14a4 4 0 0 1 9 0"/><circle cx="12" cy="18" r="1.4" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <span class="feature-tile__label">Live broadcast</span>
+      </div>
+      <div class="feature-connector" aria-hidden="true"></div>
+      <div class="feature-tile">
+        <div class="feature-tile__icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/>
+          </svg>
+        </div>
+        <span class="feature-tile__label">Equipment &amp; studio</span>
+      </div>
+      <div class="feature-connector" aria-hidden="true"></div>
+      <div class="feature-tile">
+        <div class="feature-tile__icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10" cy="10" r="6"/><path d="M20 20l-4.5-4.5"/>
+          </svg>
+        </div>
+        <span class="feature-tile__label">Asset sourcing</span>
+      </div>
+      <div class="feature-connector" aria-hidden="true"></div>
+      <div class="feature-tile">
+        <div class="feature-tile__icon">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M11 3h7a1 1 0 0 1 1 1v7l-9 9-8-8Z"/><circle cx="15.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <span class="feature-tile__label">Auctions &amp; deals</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <p class="eyebrow"><span class="eyebrow__rule"></span>Selected work<span class="eyebrow__rule"></span></p>
+    <h2 class="section__heading">Two lines of work, run end to end.</h2>
+    <p class="section__body">Ongoing responsibilities, not one-off projects.</p>
+    <div class="work-grid">
+      <article class="work-card">
+        <h3 class="work-card__title">Technical direction for live TV</h3>
+        <p class="work-card__desc">Runs the technical side of television productions — equipment rollout, studio control, and solving hard problems on air, live.</p>
+      </article>
+      <article class="work-card">
+        <h3 class="work-card__title">Bankruptcy auctions &amp; real estate</h3>
+        <p class="work-card__desc">Finds and evaluates undervalued cars, apartments, commercial space, and parking spots. Inspects, weighs the risk, bids, buys — then resells or rents out.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <p class="eyebrow"><span class="eyebrow__rule"></span>Say hello<span class="eyebrow__rule"></span></p>
+    <h2 class="section__heading">Let's talk.</h2>
+    <p class="section__body">Reach out by email.</p>
+    <div class="contact__chips">
+      <a class="chip" href="mailto:8003260@gmail.com">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;">
+          <path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/>
+        </svg>
+        8003260@gmail.com
+      </a>
+    </div>
+    <a class="btn btn--primary" href="mailto:8003260@gmail.com">Send a message</a>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>Andrey Illarionov</span>
+  <span>© 2026</span>
+</footer>
+
 </body>
 </html>
