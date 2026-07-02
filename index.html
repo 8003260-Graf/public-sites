@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -497,8 +497,8 @@
     <span class="nav__brand" data-i18n="brand">Andrey Illarionov</span>
     <div class="nav__right">
       <div class="lang-toggle" role="group" aria-label="Language">
-        <button class="lang-toggle__btn" type="button" data-lang-option="en" aria-pressed="true">EN</button>
-        <button class="lang-toggle__btn" type="button" data-lang-option="ru" aria-pressed="false">RU</button>
+        <button class="lang-toggle__btn" type="button" data-lang-option="en" aria-pressed="false">EN</button>
+        <button class="lang-toggle__btn" type="button" data-lang-option="ru" aria-pressed="true">RU</button>
       </div>
       <a class="btn btn--pill" href="#testimonials" data-i18n="navReviews">Reviews</a>
       <a class="btn btn--pill" href="#work" data-i18n="navWork">View work</a>
@@ -757,15 +757,7 @@
     const params = new URLSearchParams(window.location.search);
     const requested = params.get("lang");
     if (requested === "ru" || requested === "en") return requested;
-
-    try {
-      const saved = localStorage.getItem("site-language");
-      if (saved === "ru" || saved === "en") return saved;
-    } catch (error) {
-      return "en";
-    }
-
-    return "en";
+    return "ru";
   }
 
   function setLanguage(language) {
@@ -784,11 +776,6 @@
       button.setAttribute("aria-pressed", String(isActive));
     });
 
-    try {
-      localStorage.setItem("site-language", language);
-    } catch (error) {
-      return;
-    }
   }
 
   languageButtons.forEach((button) => {
