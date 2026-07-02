@@ -153,6 +153,31 @@
     letter-spacing: 0;
   }
   .nav__right { display: flex; align-items: center; gap: 16px; }
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px;
+    border-radius: var(--radius-pill);
+    background: var(--color-panel-raised);
+    box-shadow: var(--shadow-hairline);
+  }
+  .lang-toggle__btn {
+    border: 0;
+    border-radius: var(--radius-pill);
+    background: transparent;
+    color: var(--color-fog);
+    cursor: pointer;
+    font-family: var(--font-untitled-sans);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    min-width: 34px;
+    padding: 8px 10px;
+  }
+  .lang-toggle__btn[aria-pressed="true"] {
+    background: var(--color-electric-iris);
+    color: #ffffff;
+  }
   .nav__icon-btn {
     display: inline-flex;
     color: var(--color-pebble);
@@ -435,9 +460,16 @@
   }
   @media (max-width: 520px) {
     body { font-size: 15px; }
-    .nav { padding: 16px; gap: 12px; }
+    .nav {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      padding: 16px;
+      gap: 12px;
+    }
     .nav__brand { font-size: 14px; }
+    .nav__right { grid-column: 1 / -1; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
     .nav__right .btn { font-size: 13px; padding: 7px 12px; }
+    .lang-toggle__btn { min-width: 30px; padding: 7px 8px; }
     .hero__frame { padding: 34px 16px 64px; }
     .hero__wordmark { font-size: 34px; line-height: 1.08; margin-top: 16px; }
     .hero__subtitle { font-size: 16px; margin-bottom: 24px; }
@@ -458,14 +490,18 @@
 </style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip-link" href="#main" data-i18n="skipLink">Skip to content</a>
 
 <header>
   <nav class="nav">
-    <span class="nav__brand">Andrey Illarionov</span>
+    <span class="nav__brand" data-i18n="brand">Andrey Illarionov</span>
     <div class="nav__right">
-      <a class="btn btn--pill" href="#testimonials">Reviews</a>
-      <a class="btn btn--pill" href="#work">View work</a>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button class="lang-toggle__btn" type="button" data-lang-option="en" aria-pressed="true">EN</button>
+        <button class="lang-toggle__btn" type="button" data-lang-option="ru" aria-pressed="false">RU</button>
+      </div>
+      <a class="btn btn--pill" href="#testimonials" data-i18n="navReviews">Reviews</a>
+      <a class="btn btn--pill" href="#work" data-i18n="navWork">View work</a>
     </div>
   </nav>
 </header>
@@ -474,12 +510,12 @@
   <section class="hero">
     <div class="hero__grid" aria-hidden="true"></div>
     <div class="hero__frame">
-      <p class="eyebrow"><span class="eyebrow__rule"></span>Personal site<span class="eyebrow__rule"></span></p>
-      <h1 class="hero__wordmark">Andrey Illarionov</h1>
-      <p class="hero__subtitle">Runs the technical side of live TV broadcasts. Separately, sources, evaluates, and closes deals on undervalued property at bankruptcy auctions.</p>
+      <p class="eyebrow"><span class="eyebrow__rule"></span><span data-i18n="heroEyebrow">Personal site</span><span class="eyebrow__rule"></span></p>
+      <h1 class="hero__wordmark" data-i18n="heroTitle">Andrey Illarionov</h1>
+      <p class="hero__subtitle" data-i18n="heroSubtitle">Runs the technical side of live TV broadcasts. Separately, sources, evaluates, and closes deals on undervalued property at bankruptcy auctions.</p>
       <div class="hero__actions">
-        <a class="btn btn--primary" href="#work">View work</a>
-        <a class="btn btn--ghost" href="#contact">Get in touch</a>
+        <a class="btn btn--primary" href="#work" data-i18n="heroWork">View work</a>
+        <a class="btn btn--ghost" href="#contact" data-i18n="heroContact">Get in touch</a>
       </div>
 
       <div class="track-row">
@@ -487,22 +523,22 @@
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;">
             <path d="M4 11a8 8 0 0 1 16 0"/><path d="M7.5 14a4 4 0 0 1 9 0"/><circle cx="12" cy="18" r="1.3" fill="currentColor" stroke="none"/>
           </svg>
-          Live broadcast engineering
+          <span data-i18n="chipBroadcast">Live broadcast engineering</span>
         </span>
         <span class="track-chip">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;">
             <path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-7h6v7"/>
           </svg>
-          Distressed-asset investing
+          <span data-i18n="chipInvesting">Distressed-asset investing</span>
         </span>
       </div>
     </div>
   </section>
 
   <section class="section" id="focus">
-    <p class="eyebrow"><span class="eyebrow__rule"></span>Focus areas<span class="eyebrow__rule"></span></p>
-    <h2 class="section__heading">On air, and on paper.</h2>
-    <p class="section__body">Two different worlds, same way of working: get close to the details, move fast when it matters.</p>
+    <p class="eyebrow"><span class="eyebrow__rule"></span><span data-i18n="focusEyebrow">Focus areas</span><span class="eyebrow__rule"></span></p>
+    <h2 class="section__heading" data-i18n="focusTitle">On air, and on paper.</h2>
+    <p class="section__body" data-i18n="focusBody">Two different worlds, same way of working: get close to the details, move fast when it matters.</p>
     <div class="feature-row">
       <div class="feature-tile">
         <div class="feature-tile__icon">
@@ -510,7 +546,7 @@
             <path d="M4 11a8 8 0 0 1 16 0"/><path d="M7.5 14a4 4 0 0 1 9 0"/><circle cx="12" cy="18" r="1.4" fill="currentColor" stroke="none"/>
           </svg>
         </div>
-        <span class="feature-tile__label">Live broadcast</span>
+        <span class="feature-tile__label" data-i18n="featureBroadcast">Live broadcast</span>
       </div>
       <div class="feature-connector" aria-hidden="true"></div>
       <div class="feature-tile">
@@ -519,7 +555,7 @@
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/>
           </svg>
         </div>
-        <span class="feature-tile__label">Equipment &amp; studio</span>
+        <span class="feature-tile__label" data-i18n="featureEquipment">Equipment &amp; studio</span>
       </div>
       <div class="feature-connector" aria-hidden="true"></div>
       <div class="feature-tile">
@@ -528,7 +564,7 @@
             <circle cx="10" cy="10" r="6"/><path d="M20 20l-4.5-4.5"/>
           </svg>
         </div>
-        <span class="feature-tile__label">Asset sourcing</span>
+        <span class="feature-tile__label" data-i18n="featureSourcing">Asset sourcing</span>
       </div>
       <div class="feature-connector" aria-hidden="true"></div>
       <div class="feature-tile">
@@ -537,59 +573,59 @@
             <path d="M11 3h7a1 1 0 0 1 1 1v7l-9 9-8-8Z"/><circle cx="15.5" cy="8.5" r="1.4" fill="currentColor" stroke="none"/>
           </svg>
         </div>
-        <span class="feature-tile__label">Auctions &amp; deals</span>
+        <span class="feature-tile__label" data-i18n="featureAuctions">Auctions &amp; deals</span>
       </div>
     </div>
   </section>
 
   <section class="section" id="work">
-    <p class="eyebrow"><span class="eyebrow__rule"></span>Selected work<span class="eyebrow__rule"></span></p>
-    <h2 class="section__heading">Two lines of work, run end to end.</h2>
-    <p class="section__body">Ongoing responsibilities, not one-off projects.</p>
+    <p class="eyebrow"><span class="eyebrow__rule"></span><span data-i18n="workEyebrow">Selected work</span><span class="eyebrow__rule"></span></p>
+    <h2 class="section__heading" data-i18n="workTitle">Two lines of work, run end to end.</h2>
+    <p class="section__body" data-i18n="workBody">Ongoing responsibilities, not one-off projects.</p>
     <div class="work-grid">
       <article class="work-card">
-        <h3 class="work-card__title">Technical direction for live TV</h3>
-        <p class="work-card__desc">Runs the technical side of television productions — equipment rollout, studio control, and solving hard problems on air, live.</p>
+        <h3 class="work-card__title" data-i18n="workCardTvTitle">Technical direction for live TV</h3>
+        <p class="work-card__desc" data-i18n="workCardTvBody">Runs the technical side of television productions — equipment rollout, studio control, and solving hard problems on air, live.</p>
       </article>
       <article class="work-card">
-        <h3 class="work-card__title">Bankruptcy auctions &amp; real estate</h3>
-        <p class="work-card__desc">Finds and evaluates undervalued cars, apartments, commercial space, and parking spots. Inspects, weighs the risk, bids, buys — then resells or rents out.</p>
+        <h3 class="work-card__title" data-i18n="workCardAuctionTitle">Bankruptcy auctions &amp; real estate</h3>
+        <p class="work-card__desc" data-i18n="workCardAuctionBody">Finds and evaluates undervalued cars, apartments, commercial space, and parking spots. Inspects, weighs the risk, bids, buys — then resells or rents out.</p>
       </article>
     </div>
   </section>
 
   <section class="section" id="testimonials">
-    <p class="eyebrow"><span class="eyebrow__rule"></span>Reviews<span class="eyebrow__rule"></span></p>
-    <h2 class="section__heading">Trusted when the details matter.</h2>
-    <p class="section__body">A few words from people who have worked with Andrey across live production, technical launches, and deal analysis.</p>
+    <p class="eyebrow"><span class="eyebrow__rule"></span><span data-i18n="reviewsEyebrow">Reviews</span><span class="eyebrow__rule"></span></p>
+    <h2 class="section__heading" data-i18n="reviewsTitle">Trusted when the details matter.</h2>
+    <p class="section__body" data-i18n="reviewsBody">A few words from people who have worked with Andrey across live production, technical launches, and deal analysis.</p>
     <div class="testimonial-grid">
       <article class="testimonial-card">
-        <p class="testimonial-card__quote">"Andrey keeps complex live broadcasts under control. He is calm when the room gets loud and precise when decisions have to be made fast."</p>
+        <p class="testimonial-card__quote" data-i18n="reviewOneQuote">"Andrey keeps complex live broadcasts under control. He is calm when the room gets loud and precise when decisions have to be made fast."</p>
         <div class="testimonial-card__person">
           <span class="testimonial-card__avatar">TV</span>
           <span>
-            <span class="testimonial-card__name">Broadcast producer</span>
-            <span class="testimonial-card__role">Federal television project</span>
+            <span class="testimonial-card__name" data-i18n="reviewOneName">Broadcast producer</span>
+            <span class="testimonial-card__role" data-i18n="reviewOneRole">Federal television project</span>
           </span>
         </div>
       </article>
       <article class="testimonial-card">
-        <p class="testimonial-card__quote">"He connects engineering discipline with practical business sense. The result is simple: fewer surprises and clearer next steps."</p>
+        <p class="testimonial-card__quote" data-i18n="reviewTwoQuote">"He connects engineering discipline with practical business sense. The result is simple: fewer surprises and clearer next steps."</p>
         <div class="testimonial-card__person">
           <span class="testimonial-card__avatar">OP</span>
           <span>
-            <span class="testimonial-card__name">Operations partner</span>
-            <span class="testimonial-card__role">Commercial transport service</span>
+            <span class="testimonial-card__name" data-i18n="reviewTwoName">Operations partner</span>
+            <span class="testimonial-card__role" data-i18n="reviewTwoRole">Commercial transport service</span>
           </span>
         </div>
       </article>
       <article class="testimonial-card">
-        <p class="testimonial-card__quote">"On asset deals, Andrey looks past the headline price. He checks the condition, documents, risks, and exit plan before moving."</p>
+        <p class="testimonial-card__quote" data-i18n="reviewThreeQuote">"On asset deals, Andrey looks past the headline price. He checks the condition, documents, risks, and exit plan before moving."</p>
         <div class="testimonial-card__person">
           <span class="testimonial-card__avatar">RE</span>
           <span>
-            <span class="testimonial-card__name">Real estate contact</span>
-            <span class="testimonial-card__role">Auction and rental assets</span>
+            <span class="testimonial-card__name" data-i18n="reviewThreeName">Real estate contact</span>
+            <span class="testimonial-card__role" data-i18n="reviewThreeRole">Auction and rental assets</span>
           </span>
         </div>
       </article>
@@ -597,9 +633,9 @@
   </section>
 
   <section class="section" id="contact">
-    <p class="eyebrow"><span class="eyebrow__rule"></span>Say hello<span class="eyebrow__rule"></span></p>
-    <h2 class="section__heading">Let's talk.</h2>
-    <p class="section__body">Reach out by email.</p>
+    <p class="eyebrow"><span class="eyebrow__rule"></span><span data-i18n="contactEyebrow">Say hello</span><span class="eyebrow__rule"></span></p>
+    <h2 class="section__heading" data-i18n="contactTitle">Let's talk.</h2>
+    <p class="section__body" data-i18n="contactBody">Reach out by email.</p>
     <div class="contact__chips">
       <a class="chip" href="mailto:8003260@gmail.com">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="width:16px;height:16px;">
@@ -608,14 +644,158 @@
         8003260@gmail.com
       </a>
     </div>
-    <a class="btn btn--primary" href="mailto:8003260@gmail.com">Send a message</a>
+    <a class="btn btn--primary" href="mailto:8003260@gmail.com" data-i18n="contactButton">Send a message</a>
   </section>
 </main>
 
 <footer class="footer">
-  <span>Andrey Illarionov</span>
+  <span data-i18n="footerName">Andrey Illarionov</span>
   <span>© 2026</span>
 </footer>
 
+<script>
+  const translations = {
+    en: {
+      pageTitle: "Andrey Illarionov",
+      pageDescription: "Andrey Illarionov — technical direction for live TV broadcasts, and sourcing and closing deals on undervalued property at bankruptcy auctions.",
+      skipLink: "Skip to content",
+      brand: "Andrey Illarionov",
+      navReviews: "Reviews",
+      navWork: "View work",
+      heroEyebrow: "Personal site",
+      heroTitle: "Andrey Illarionov",
+      heroSubtitle: "Runs the technical side of live TV broadcasts. Separately, sources, evaluates, and closes deals on undervalued property at bankruptcy auctions.",
+      heroWork: "View work",
+      heroContact: "Get in touch",
+      chipBroadcast: "Live broadcast engineering",
+      chipInvesting: "Distressed-asset investing",
+      focusEyebrow: "Focus areas",
+      focusTitle: "On air, and on paper.",
+      focusBody: "Two different worlds, same way of working: get close to the details, move fast when it matters.",
+      featureBroadcast: "Live broadcast",
+      featureEquipment: "Equipment & studio",
+      featureSourcing: "Asset sourcing",
+      featureAuctions: "Auctions & deals",
+      workEyebrow: "Selected work",
+      workTitle: "Two lines of work, run end to end.",
+      workBody: "Ongoing responsibilities, not one-off projects.",
+      workCardTvTitle: "Technical direction for live TV",
+      workCardTvBody: "Runs the technical side of television productions — equipment rollout, studio control, and solving hard problems on air, live.",
+      workCardAuctionTitle: "Bankruptcy auctions & real estate",
+      workCardAuctionBody: "Finds and evaluates undervalued cars, apartments, commercial space, and parking spots. Inspects, weighs the risk, bids, buys — then resells or rents out.",
+      reviewsEyebrow: "Reviews",
+      reviewsTitle: "Trusted when the details matter.",
+      reviewsBody: "A few words from people who have worked with Andrey across live production, technical launches, and deal analysis.",
+      reviewOneQuote: "\"Andrey keeps complex live broadcasts under control. He is calm when the room gets loud and precise when decisions have to be made fast.\"",
+      reviewOneName: "Broadcast producer",
+      reviewOneRole: "Federal television project",
+      reviewTwoQuote: "\"He connects engineering discipline with practical business sense. The result is simple: fewer surprises and clearer next steps.\"",
+      reviewTwoName: "Operations partner",
+      reviewTwoRole: "Commercial transport service",
+      reviewThreeQuote: "\"On asset deals, Andrey looks past the headline price. He checks the condition, documents, risks, and exit plan before moving.\"",
+      reviewThreeName: "Real estate contact",
+      reviewThreeRole: "Auction and rental assets",
+      contactEyebrow: "Say hello",
+      contactTitle: "Let's talk.",
+      contactBody: "Reach out by email.",
+      contactButton: "Send a message",
+      footerName: "Andrey Illarionov"
+    },
+    ru: {
+      pageTitle: "Андрей Илларионов",
+      pageDescription: "Андрей Илларионов — техническое сопровождение прямых телеэфиров, поиск и закрытие сделок с недооценёнными активами на торгах по банкротству.",
+      skipLink: "Перейти к содержанию",
+      brand: "Андрей Илларионов",
+      navReviews: "Отзывы",
+      navWork: "Работы",
+      heroEyebrow: "Личный сайт",
+      heroTitle: "Андрей Илларионов",
+      heroSubtitle: "Отвечает за техническую сторону прямых телеэфиров. Отдельно ищет, оценивает и закрывает сделки с недооценённой недвижимостью на торгах по банкротству.",
+      heroWork: "Смотреть работы",
+      heroContact: "Связаться",
+      chipBroadcast: "Техническое сопровождение эфиров",
+      chipInvesting: "Инвестиции в проблемные активы",
+      focusEyebrow: "Фокус",
+      focusTitle: "В эфире и в документах.",
+      focusBody: "Два разных мира, один подход: быстро разбираться в деталях и действовать точно, когда это важно.",
+      featureBroadcast: "Прямой эфир",
+      featureEquipment: "Оборудование и студия",
+      featureSourcing: "Поиск активов",
+      featureAuctions: "Торги и сделки",
+      workEyebrow: "Направления",
+      workTitle: "Две линии работы, полный цикл.",
+      workBody: "Постоянные зоны ответственности, а не разовые проекты.",
+      workCardTvTitle: "Техническое руководство прямыми эфирами",
+      workCardTvBody: "Ведёт техническую сторону телевизионных проектов: запуск оборудования, контроль студии и решение сложных задач в прямом эфире.",
+      workCardAuctionTitle: "Торги по банкротству и недвижимость",
+      workCardAuctionBody: "Находит и оценивает недооценённые автомобили, квартиры, коммерческие помещения и машиноместа. Осматривает, считает риски, участвует в торгах, покупает, затем продаёт или сдаёт в аренду.",
+      reviewsEyebrow: "Отзывы",
+      reviewsTitle: "Надёжен там, где важны детали.",
+      reviewsBody: "Несколько слов от людей, которые работали с Андреем в прямых эфирах, технических запусках и анализе сделок.",
+      reviewOneQuote: "\"Андрей держит сложные прямые эфиры под контролем. Он спокоен, когда вокруг шумно, и точен, когда решения нужно принимать быстро.\"",
+      reviewOneName: "Продюсер эфира",
+      reviewOneRole: "Федеральный телевизионный проект",
+      reviewTwoQuote: "\"Он соединяет инженерную дисциплину с практичным бизнес-мышлением. Результат простой: меньше сюрпризов и понятнее следующие шаги.\"",
+      reviewTwoName: "Операционный партнёр",
+      reviewTwoRole: "Сервис коммерческого транспорта",
+      reviewThreeQuote: "\"В сделках с активами Андрей смотрит глубже стартовой цены. Проверяет состояние, документы, риски и план выхода до того, как двигаться дальше.\"",
+      reviewThreeName: "Контакт по недвижимости",
+      reviewThreeRole: "Торги и арендные активы",
+      contactEyebrow: "Контакт",
+      contactTitle: "Давайте обсудим.",
+      contactBody: "Напишите на почту.",
+      contactButton: "Написать",
+      footerName: "Андрей Илларионов"
+    }
+  };
+
+  const description = document.querySelector('meta[name="description"]');
+  const languageButtons = document.querySelectorAll("[data-lang-option]");
+  const translatableNodes = document.querySelectorAll("[data-i18n]");
+
+  function getInitialLanguage() {
+    const params = new URLSearchParams(window.location.search);
+    const requested = params.get("lang");
+    if (requested === "ru" || requested === "en") return requested;
+
+    try {
+      const saved = localStorage.getItem("site-language");
+      if (saved === "ru" || saved === "en") return saved;
+    } catch (error) {
+      return "en";
+    }
+
+    return "en";
+  }
+
+  function setLanguage(language) {
+    const copy = translations[language] || translations.en;
+    document.documentElement.lang = language;
+    document.title = copy.pageTitle;
+    if (description) description.setAttribute("content", copy.pageDescription);
+
+    translatableNodes.forEach((node) => {
+      const key = node.dataset.i18n;
+      if (copy[key]) node.textContent = copy[key];
+    });
+
+    languageButtons.forEach((button) => {
+      const isActive = button.dataset.langOption === language;
+      button.setAttribute("aria-pressed", String(isActive));
+    });
+
+    try {
+      localStorage.setItem("site-language", language);
+    } catch (error) {
+      return;
+    }
+  }
+
+  languageButtons.forEach((button) => {
+    button.addEventListener("click", () => setLanguage(button.dataset.langOption));
+  });
+
+  setLanguage(getInitialLanguage());
+</script>
 </body>
 </html>
